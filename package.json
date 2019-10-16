@@ -1,0 +1,15 @@
+{
+  "name": "vue-cli-plugin-electron-go",
+  "version": "0.0.2",
+  "description": "Electron Go vue cli plugin",
+  "main": "index.js",
+  "repository": "https://github.com/Akumzy/vue-cli-plugin-electron-go.git",
+  "author": "Akuma Isaac Akuma <akumaisaacakuma@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "@akumzy/fs-watcher": "0.3.3",
+    "ipc-node-go": "0.2.0",
+    "lodash": "^4.17.15"
+  }
+}
