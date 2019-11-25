@@ -1,13 +1,23 @@
-const buildApp = require('./build')
+const app = require('./build')
 module.exports = (api, options) => {
+  api.registerCommand(
+    'go:watch',
+    {
+      description: 'watch go code',
+      usage: 'vue-cli-service go:watch'
+    },
+    async (args, rawArgs) => {
+      await app.watch(api, options, args['w'])
+    }
+  )
   api.registerCommand(
     'go:build',
     {
       description: 'build go code',
       usage: 'vue-cli-service go:build'
     },
-    async (args, rawArgs) => {
-      await buildApp(api, options, args['w'])
+    (args, rawArgs) => {
+      app.build(api, options)
     }
   )
 }

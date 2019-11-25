@@ -91,8 +91,7 @@ module.exports = (api, option, rootOption) => {
   const devDependencies = { concurrently: '^5.0.0' }
   const scripts = {
     'go:build': 'vue-cli-service go:build',
-    'electron:serve':
-      'vue-cli-service go:build && concurrently -k -r "vue-cli-service go:build -w" "vue-cli-service electron:serve"',
+    'electron:serve': 'concurrently -k -r "vue-cli-service go:watch" "vue-cli-service electron:serve"',
     'electron:build': 'vue-cli-service go:build && vue-cli-service electron:build'
   }
   api.extendPackage({ scripts, dependencies, devDependencies })
