@@ -21,6 +21,7 @@ const GOPlatform = {
   win32: "windows",
   windows: "windows"
 };
+const oldDir = __dirname;
 exports.watch = async function watch(api, options, watchMode = false) {
   const rootDir = api.resolve(".");
   const goPath = api.resolve("./golang");
@@ -54,13 +55,11 @@ exports.watch = async function watch(api, options, watchMode = false) {
         ? `${snakeCae(appName)}_${process.arch}.exe`
         : `${snakeCae(appName)}_${process.arch}`;
     // Build apps
+    process.chdir(goPath);
     execSync(
-      `cd ${goPath} && go build -o "${path.join(
-        binPath,
-        GOPlatform[process.platform],
-        name
-      )}" ${goPath}`
+      `go build -o "${path.join(binPath, GOPlatform[key], name)}" ${goPath}`
     );
+    process.chdir(oldDir);
     done("Build complete!");
     stopSpinner(false);
   }
@@ -105,7 +104,6 @@ exports.build = function build(api, options) {
       logWithSpinner(
         `electron-go building binery for platform=${GOPlatform[key]} arch=${a}`
       );
-      console.log("");
       // Set enviroment variables
       if (process.platform === "win32") {
         execSync(`SET GOOS=${GOPlatform[key]}`);
@@ -115,7 +113,6 @@ exports.build = function build(api, options) {
           `export GOOS=${GOPlatform[key]} && export GOARCH=${GOArch[a]}`
         );
       }
-      const oldDir = __dirname;
       let name =
         key === "win"
           ? `${snakeCae(appName)}_${a}.exe`

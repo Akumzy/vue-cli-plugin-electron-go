@@ -1,6 +1,6 @@
 {
   "name": "vue-cli-plugin-electron-go",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Electron Go vue cli plugin",
   "main": "index.js",
   "repository": "https://github.com/Akumzy/vue-cli-plugin-electron-go.git",
