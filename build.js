@@ -57,7 +57,7 @@ exports.watch = async function watch(api, options, watchMode = false) {
     // Build apps
     process.chdir(goPath);
     execSync(
-      `go build -o "${path.join(binPath, GOPlatform[key], name)}" ${goPath}`
+      `go build -o "${path.join(binPath, GOPlatform[process.platform], name)}" ${goPath}`
     );
     process.chdir(oldDir);
     done("Build complete!");
