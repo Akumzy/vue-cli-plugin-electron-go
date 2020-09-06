@@ -6,12 +6,12 @@ const { default: Watcher, Op } = require("@akumzy/fs-watcher"),
     done,
     logWithSpinner,
     error,
-    stopSpinner
+    stopSpinner,
   } = require("@vue/cli-shared-utils"),
   fs = require("fs");
 const GOArch = {
   ia32: "386",
-  x64: "amd64"
+  x64: "amd64",
 };
 const GOPlatform = {
   mac: "darwin",
@@ -19,10 +19,10 @@ const GOPlatform = {
   linux: "linux",
   win: "windows",
   win32: "windows",
-  windows: "windows"
+  windows: "windows",
 };
 const oldDir = __dirname;
-exports.watch = async function watch(api, options, watchMode = false) {
+exports.watch = async function watch(api) {
   const rootDir = api.resolve(".");
   const goPath = api.resolve("./golang");
   const { name: appName } = require(api.resolve("./package.json"));
@@ -32,20 +32,19 @@ exports.watch = async function watch(api, options, watchMode = false) {
   const w = new Watcher({
     path: goPath,
     filters: [Op.Create, Op.Move, Op.Remove, Op.Rename, Op.Write],
-    recursive: true
+    recursive: true,
   });
   await w.start();
   // watch directory
   w.onAll((_, f) => {
     build(f);
   });
-  w.onError(err => {
+  w.onError((err) => {
     error(err);
     process.exit(1);
   });
 
   function build() {
-    logWithSpinner("Building go...");
     let binPath = path.join(rootDir, "bin");
     if (!fs.existsSync(path.join(rootDir, "bin"))) {
       fs.mkdirSync(binPath, { recursive: true });
@@ -56,9 +55,14 @@ exports.watch = async function watch(api, options, watchMode = false) {
         : `${snakeCae(appName)}_${process.arch}`;
     // Build apps
     process.chdir(goPath);
-    execSync(
-      `go build -o "${path.join(binPath, GOPlatform[process.platform], name)}" ${goPath}`
-    );
+    const cmd = `go build -o "${path.join(
+      binPath,
+      GOPlatform[process.platform],
+      name,
+    )}" ${goPath}`;
+    logWithSpinner("Building go...");
+    console.info(cmd);
+    execSync(cmd);
     process.chdir(oldDir);
     done("Build complete!");
     stopSpinner(false);
@@ -85,14 +89,14 @@ exports.build = function build(api, options) {
   } else {
     opts = {
       mac: {
-        arch: ["ia32", "x64"]
+        arch: ["ia32", "x64"],
       },
       win: {
-        arch: ["ia32", "x64"]
+        arch: ["ia32", "x64"],
       },
       linux: {
-        arch: ["ia32", "x64"]
-      }
+        arch: ["ia32", "x64"],
+      },
     };
   }
   for (const key in opts) {
@@ -102,7 +106,7 @@ exports.build = function build(api, options) {
     }
     for (const a of archs) {
       logWithSpinner(
-        `electron-go building binery for platform=${GOPlatform[key]} arch=${a}`
+        `electron-go building binery for platform=${GOPlatform[key]} arch=${a}`,
       );
       // Set enviroment variables
       if (process.platform === "win32") {
@@ -110,7 +114,7 @@ exports.build = function build(api, options) {
         execSync(`SET GOOS=${GOArch[a]}`);
       } else {
         execSync(
-          `export GOOS=${GOPlatform[key]} && export GOARCH=${GOArch[a]}`
+          `export GOOS=${GOPlatform[key]} && export GOARCH=${GOArch[a]}`,
         );
       }
       let name =
@@ -120,7 +124,12 @@ exports.build = function build(api, options) {
       // Build apps
       process.chdir(goPath);
       execSync(
-        `go build -o "${path.join(binPath, GOPlatform[key], name)}" ${goPath}`
+        `go build -o "${path.join(binPath, GOPlatform[key], name)}" ${goPath}`,
+      );
+      console.log(
+        `Bin [%s] exists %s`,
+        binPath,
+        String(fs.existsSync(binPath)),
       );
       process.chdir(oldDir);
     }
