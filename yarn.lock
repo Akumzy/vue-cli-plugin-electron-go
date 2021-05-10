@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@akumzy/fs-watcher@0.3.3":
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/@akumzy/fs-watcher/-/fs-watcher-0.3.3.tgz#8fdae19e1a14766e0309b063593510407329a620"
-  integrity sha512-9PuO7MCDo3wIKF6eYfolTSmLXFw4b6yKXtWf97hk3veP5Bt6ZzGWyC75pxQ5R6xs0vqeetO9UPIKN+kl72E0Rg==
+"@akumzy/fs-watcher@0.3.4":
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/@akumzy/fs-watcher/-/fs-watcher-0.3.4.tgz#ac8171c85628ba17c8647cb2223b31b6cc7ce95d"
+  integrity sha512-xNqBIJhdVPE0rh3U9kiv1hRQqFDwbdRvrX/liHQzv8v9D3hSEf8Wr2QNxAMYcnUevBHjKkqKpvNs5yjZHO8Rvg==
   dependencies:
     ipc-node-go "^0.2.0"
 
@@ -14,7 +14,7 @@ ipc-node-go@0.2.0, ipc-node-go@^0.2.0:
   resolved "https://registry.yarnpkg.com/ipc-node-go/-/ipc-node-go-0.2.0.tgz#2f5da1d0738602ae9758508e43e3f87c34b58c50"
   integrity sha512-zHqypOlCmX94Jc/V8nflZko8jK/zchba5x9GXeQK32tSFQSyfpyoh8pnS5Zvvj467VP9K/NpTk+iggNHmomZAg==
 
-lodash@^4.17.15:
-  version "4.17.19"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
-  integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
+lodash@^4.17.20:
+  version "4.17.21"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
+  integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
